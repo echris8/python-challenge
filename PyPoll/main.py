@@ -21,16 +21,19 @@ votes = [row[2] for row in csv_list]
 total_votes = len(votes)
 names = []
 
+#Find unique names 
 for name in votes: 
     if name not in names:   
         names.append(name)
         tallies.append(0) 
 
+#Find number of votes for each unique name 
 for vote in votes: 
     for i, name in enumerate(names):
         if vote == name: 
             tallies[i] += 1 
 
+#Find who received the most votes
 for i, name in enumerate(names): 
 
     most = max(tallies)

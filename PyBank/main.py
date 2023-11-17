@@ -13,17 +13,18 @@ greatest_decrease_date = ""
 #Tie to resources csv file 
 input_path = os.path.join(os.path.dirname(__file__), "Resources", "budget_data.csv") 
 
-#Find total number months
 with open(input_path, 'r') as csvfile: 
     csvreader = csv.reader(csvfile)
     header = next(csvreader)
 
+    #Find number of months and net profit 
     for row in csvreader: 
 
         months = months+1
         profit_loss=int(row[1])
         net_total = net_total+profit_loss
 
+        #Find net change 
         if months > 1 : 
             net_change = profit_loss - previous_profit_loss
             profit_list.append(net_change)
