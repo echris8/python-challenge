@@ -2,51 +2,58 @@
 import os
 import csv 
 
-candidate_list = {
-     "Charles Caspter Stockham":0, 
-     "Diana DeGette":0, 
-     "Raymon Anthony Doane":0}
-
-votes = 0
+total_votes = 0
+votes = []
+tallies = []
+winner = ""
+most = 0
 
 #Tie to csv file 
-csvpath = os.path.join('Resources''election_data.csv')
+input_path = os.path.join(os.path.dirname(__file__), "Resources", "election_data.csv")
 
 #Find total votes cast 
-with open(csvpath, 'r') as csvfile: 
-    csvreader = csv.reader(csvfile)
+with open(input_path, 'r') as csvfile: 
+    csvreader = csv.reader(csvfile, delimiter=',')
     header = next(csvreader)
+    csv_list = list(csvreader)
 
-    for row in csvreader: 
-        votes += 1
-        votes_cast=str(row[2])
-        
-        if 'Charles Caspter Stockham' in votes_cast:
-            candidate_list['Charles Caspter Stockham'] += 1 
+votes = [row[2] for row in csv_list]
+total_votes = len(votes)
+names = []
 
-        elif 'Diana DeGette'in votes_cast: 
-            candidate_list['Diana DeGette'] += 1
-        
-        elif 'Raymon Anthoy Doane' in votes_cast: 
-            candidate_list[Raymon Anthony Doane] += 1
+for name in votes: 
+    if name not in names:   
+        names.append(name)
+        tallies.append(0) 
 
-    #Percent from total for each candidate 
-    
+for vote in votes: 
+    for i, name in enumerate(names):
+        if vote == name: 
+            tallies[i] += 1 
 
+for i, name in enumerate(names): 
 
+    most = max(tallies)
 
-#Find the who won, with greatest total votes 
-if total_voteA > total_voteB And 
-    total_voteA > total_voteC Then
-    winner = 'Charles Caspter Stockham'
+for i, vote in enumerate(tallies): 
+    if vote == most: 
+        winner = names [i]      
 
-if total_voteB > total_voteA And 
-    total_voteB > total_voteC Then
-    winner = 'Diana DeGette'
+# #Identify file to write to 
+output_path = os.path.join(os.path.dirname(__file__), "analysis.md")
 
-if total_voteC > total_voteB And 
-    total_voteC > total_vote Then
-    winner = 'Raymon Anthony Doane'
+#print(winner, most)
+with open(output_path, "w") as md_file:
+    md_file.write(f"Election Results\n")
+    md_file.write("-" * 40 + "\n")
+    md_file.write(f"Total Votes:  {total_votes}\n")
+    md_file.write("-" * 40 + "\n")
+    for i, name in enumerate(names):
+        md_file.write(f"{name:<24} {tallies[i]:8,}   {(tallies[i]/total_votes)*100:5,.2f}%\n")
+    md_file.write("-" * 40 + "\n")
+    md_file.write(f"Winner: {winner}\n")
+    md_file.write("-" * 40 + "\n")
 
 #Print results 
+print(f"Results written to {output_path}") 
 

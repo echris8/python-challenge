@@ -11,10 +11,10 @@ greatest_decrease = 0
 greatest_decrease_date = ""
 
 #Tie to resources csv file 
-csvpath = os.path.reader('Resources''budget_data.csv')
+input_path = os.path.join(os.path.dirname(__file__), "Resources", "budget_data.csv") 
 
 #Find total number months
-with open(csvpath, 'r') as csvfile: 
+with open(input_path, 'r') as csvfile: 
     csvreader = csv.reader(csvfile)
     header = next(csvreader)
 
@@ -42,4 +42,19 @@ with open(csvpath, 'r') as csvfile:
 
     average_change = sum(profit_list)/len(profit_list)
 
+#Identify file to write to 
+output_path = os.path.join(os.path.dirname(__file__), "analysis.md")
+
+#Write results to the file 
+with open(output_path, "w") as md_file:
+    md_file.write("Financial Analysis\n")
+    md_file.write("-" * 28 + "\n")
+    md_file.write(f"Total Months: {int(months)}\n")
+    md_file.write(f"Total: ${int(net_total)}\n")
+    md_file.write(f"Average Change: ${(average_change)}\n")
+    md_file.write(f"Greatest Increase in Profits: {greatest_increase_date} (${int(greatest_increase)})\n")
+    md_file.write(f"Greatest Decrease in Profits: {greatest_decrease_date} (${int(greatest_decrease)})\n")
+#Print
+
 #Print results 
+print(f"Results written to {output_path}") 
