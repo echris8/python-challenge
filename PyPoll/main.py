@@ -52,7 +52,7 @@ with open(output_path, "w") as md_file:
     md_file.write(f"Total Votes:  {total_votes}\n")
     md_file.write("-" * 40 + "\n")
     for i, name in enumerate(names):
-        md_file.write(f"{name:<24} {tallies[i]:8,}   {(tallies[i]/total_votes)*100:5,.2f}%\n")
+        md_file.write(f"{name}: {((tallies[i]/total_votes)*100):.3f}%   ({tallies[i]})\n")
     md_file.write("-" * 40 + "\n")
     md_file.write(f"Winner: {winner}\n")
     md_file.write("-" * 40 + "\n")

@@ -52,7 +52,7 @@ with open(output_path, "w") as md_file:
     md_file.write("-" * 28 + "\n")
     md_file.write(f"Total Months: {int(months)}\n")
     md_file.write(f"Total: ${int(net_total)}\n")
-    md_file.write(f"Average Change: ${(average_change)}\n")
+    md_file.write(f"Average Change: ${round(average_change, 2)}\n")
     md_file.write(f"Greatest Increase in Profits: {greatest_increase_date} (${int(greatest_increase)})\n")
     md_file.write(f"Greatest Decrease in Profits: {greatest_decrease_date} (${int(greatest_decrease)})\n")
 #Print
